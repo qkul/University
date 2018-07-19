@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ContosoUniversity.DAL;
+using ContosoUniversity.Models;
+using System;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ContosoUniversity.DAL;
-using ContosoUniversity.Models;
+using PagedList;
 
 namespace ContosoUniversity.Controllers
 {
@@ -16,9 +14,48 @@ namespace ContosoUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Students
-        public ActionResult Index()
-        {
-            return View(db.Students.ToList());//gets a list of students from the Students entity
+
+        public ViewResult Index(string sortOrder,string curFilter, string searchString, int? page)// Когда пользователь щелкает гиперссылку заголовка столбца, в строку запроса подставляется соответствующее значение параметра sortOrder
+        {            //that the view can configuer the column hyperlinks
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";//if sortOrder = null -> присваивается "имя_desc"
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.CurSort = sortOrder;
+
+            if (searchString != null)
+                page = 1;
+            else           
+                searchString = curFilter;
+            ViewBag.CurFilter = searchString;
+
+            var students = from s in db.Students
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(x=>x.LastName.Contains(searchString) || x.FirstMidName.Contains(searchString));    
+                //contains (содержит ли имя(фамилия) данную строку)
+            }
+            
+            //linq ) IQueryable
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
+           // adds a page parameter, a current sort order parameter
+            // return View(db.Students.ToList());//gets a list of students from the Students entity
         }
 
         // GET: Students/Details/5

@@ -102,3 +102,7 @@ D:\Project\Web-api (mvc)\ContosoUniversity\ContosoUniversity\ContosoUniversity\b
 D:\Project\Web-api (mvc)\ContosoUniversity\ContosoUniversity\ContosoUniversity\bin\EntityFramework.SqlServer.dll
 D:\Project\Web-api (mvc)\ContosoUniversity\ContosoUniversity\ContosoUniversity\bin\EntityFramework.xml
 D:\Project\Web-api (mvc)\ContosoUniversity\ContosoUniversity\ContosoUniversity\bin\EntityFramework.SqlServer.xml
+D:\Project\Web-api (mvc)\ContosoUniversity\ContosoUniversity\ContosoUniversity\bin\PagedList.dll
+D:\Project\Web-api (mvc)\ContosoUniversity\ContosoUniversity\ContosoUniversity\bin\PagedList.Mvc.dll
+D:\Project\Web-api (mvc)\ContosoUniversity\ContosoUniversity\ContosoUniversity\bin\PagedList.xml
+D:\Project\Web-api (mvc)\ContosoUniversity\ContosoUniversity\ContosoUniversity\bin\PagedList.Mvc.xml
