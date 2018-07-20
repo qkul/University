@@ -1,2 +1,4 @@
 * linguist-vendored
-*.rb linguist-language=C#
+*.js linguist-vendored=false
+*.cs linguist-vendored=true
+*.cs linguist-language=C#
